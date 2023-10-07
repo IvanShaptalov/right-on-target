@@ -22,6 +22,9 @@
                                 <state key="normal" title="Check">
                                     <color key="titleColor" systemColor="systemIndigoColor"/>
                                 </state>
+                                <connections>
+                                    <action selector="onButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="o8N-yP-qBN"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wZp-RS-hzZ">
                                 <rect key="frame" x="442.5" y="317.5" width="11" height="21"/>
@@ -29,7 +32,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" minimumValueImage="01.square.fill" catalog="system" maximumValueImage="50.square.fill" translatesAutoresizingMaskIntoConstraints="NO" id="Gem-HT-9W4">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="25" minValue="1" maxValue="50" minimumValueImage="01.square.fill" catalog="system" maximumValueImage="50.square.fill" translatesAutoresizingMaskIntoConstraints="NO" id="Gem-HT-9W4">
                                 <rect key="frame" x="62" y="192.5" width="812" height="30"/>
                                 <color key="tintColor" systemColor="systemPurpleColor"/>
                                 <constraints>
@@ -37,6 +40,9 @@
                                 </constraints>
                                 <color key="minimumTrackTintColor" systemColor="systemPinkColor"/>
                                 <color key="thumbTintColor" systemColor="systemPinkColor"/>
+                                <connections>
+                                    <action selector="onSliderScoreValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="pfp-fZ-bi2"/>
+                                </connections>
                             </slider>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -51,6 +57,10 @@
                             <constraint firstItem="ZVr-I7-Mtr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="oir-qr-QZO"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="labelScore" destination="wZp-RS-hzZ" id="BhZ-DU-Zaf"/>
+                        <outlet property="sliderScore" destination="Gem-HT-9W4" id="hDi-Ek-fwy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
