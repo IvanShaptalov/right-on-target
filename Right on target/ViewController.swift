@@ -15,13 +15,11 @@ class ViewController: UIViewController {
     private let maxRandomValue: Int = 50
     private let roundCount: Int = 5
     
-   
-
     override func viewDidLoad() {
         super.viewDidLoad()
         print("viewDidLoad")
         gameObj = Game(startValue: minRandomValue, endValue: maxRandomValue, rounds: roundCount)
-        labelRandomValue.text = String(gameObj!.currentSecretValue)
+        updateRandomLabel()
     }
     
     lazy var secondViewController: SecondViewController = getSecondViewController()
@@ -65,27 +63,36 @@ class ViewController: UIViewController {
     }
     
     
-    @IBOutlet weak var         labelRandomValue: UILabel!
+    @IBOutlet weak var labelRandomValue: UILabel!
     
     @IBOutlet weak var sliderScore: UISlider!
        
     @IBAction func checkNumber(_ sender: UIButton) {
         gameObj!.calculateScore(with: Int(sliderScore.value))
         if gameObj!.isGameEnded {
-            let alertController = UIAlertController(title: "Finish", message: "Your score is :\(gameObj!.score)", preferredStyle:.alert )
-            
-            
-            let actionOk = UIAlertAction(title: "OK, restart game", style: .default, handler:  { [self](alert: UIAlertAction!) in gameObj!.restartGame()
-            })
-            
-          
-            alertController.addAction(actionOk)
-            self.present(alertController,animated:true, completion: nil)            } else {
-            gameObj!.startNewRound()
-                    labelRandomValue.text = String(gameObj!.currentSecretValue)
+            showAlertMessage(message: "Your score is :\(gameObj!.score)")
+                    } else {
+            updateRandomLabel()
         }
        
         
     }
+    
+    private func updateRandomLabel(){
+        gameObj!.startNewRound()
+                labelRandomValue.text = String(gameObj!.currentSecretValue)    }
+    
+    private func showAlertMessage(message: String){
+        let alertController = UIAlertController(title: "Finish", message: message, preferredStyle:.alert )
+        
+        
+        let actionOk = UIAlertAction(title: "OK, restart game", style: .default, handler:  { [self](alert: UIAlertAction!) in gameObj!.restartGame()
+        })
+        
+      
+        alertController.addAction(actionOk)
+        self.present(alertController,animated:true, completion: nil)
+    }
+    
 }
 
