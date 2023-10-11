@@ -68,9 +68,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var sliderScore: UISlider!
        
     @IBAction func checkNumber(_ sender: UIButton) {
-        gameObj!.calculateScore(with: Int(sliderScore.value))
+        gameObj!.gameRound.calculateScore(with: Int(sliderScore.value))
         if gameObj!.isGameEnded {
-            showAlertMessage(message: "Your score is :\(gameObj!.score)")
+            showAlertMessage(message: "Your score is :\(gameObj!.gameRound.score)")
                     } else {
             updateRandomLabel()
         }
@@ -80,7 +80,7 @@ class ViewController: UIViewController {
     
     private func updateRandomLabel(){
         gameObj!.startNewRound()
-                labelRandomValue.text = String(gameObj!.currentSecretValue)    }
+        labelRandomValue.text = String(gameObj!.gameRound.currentSecretValue)    }
     
     private func showAlertMessage(message: String){
         let alertController = UIAlertController(title: "Finish", message: message, preferredStyle:.alert )

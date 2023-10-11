@@ -9,31 +9,40 @@ import Foundation
 
 
 protocol GameProtocol {
-    var score: Int {get}
-
-    var currentSecretValue: Int{get}
 
     var isGameEnded: Bool{get}
+    
+    var randomValueGenerator: RandomValueGenerator {get}
+    
+    var gameRound: GameRound {get}
 
     func restartGame()
     
     func startNewRound()
+}
+
+protocol GameRoundProtocol{
+    
+    var score: Int {get}
+    
+    var currentSecretValue: Int {get}
     
     func calculateScore(with value: Int)
     
 }
 
+protocol RandomValueGeneratorProtocol {
+    func getRandomValue() -> Int
+}
+
+
 class Game : GameProtocol {
-    var score: Int = 0
-    
-    
-    private var minSecretValue: Int
-    private var maxSecretValue: Int
-    
-    var currentSecretValue: Int = 0
-    
+       
     private var lastRound: Int
     private var currentRound: Int = 0
+    
+    var randomValueGenerator: RandomValueGenerator
+    var gameRound: GameRound
     
     
     
@@ -47,17 +56,54 @@ class Game : GameProtocol {
     
     func restartGame() {
         currentRound = 0
-        score = 0
+        self.gameRound.score = 0
         startNewRound()
     }
     
     func startNewRound() {
-        currentSecretValue = self.getNewSecretValue()
+        self.gameRound.currentSecretValue = self.randomValueGenerator.getRandomValue()
         currentRound += 1
     }
     
-    private func getNewSecretValue() -> Int{
-        return (minSecretValue ... maxSecretValue).randomElement()!
+    
+    init(startValue: Int, endValue: Int, rounds: Int){
+        lastRound = rounds
+        self.randomValueGenerator = RandomValueGenerator(min: startValue, max: endValue)!
+        self.gameRound = GameRound(score: 0, currentSecretValue: randomValueGenerator.getRandomValue())
+    }
+}
+
+
+struct RandomValueGenerator : RandomValueGeneratorProtocol{
+    func getRandomValue() -> Int {
+        return (minValue...maxValue).randomElement()!
+    }
+    
+    
+    
+    private let minValue: Int
+    private let maxValue: Int
+    
+    
+    init?(min: Int, max: Int){
+        
+        guard min < max else {
+            return nil
+        }
+                
+        self.minValue = min
+        self.maxValue = max
+    }
+}
+
+class GameRound : GameRoundProtocol{
+    var score: Int
+    
+    var currentSecretValue: Int
+    
+    init(score : Int = 0, currentSecretValue: Int){
+        self.score = score
+        self.currentSecretValue = currentSecretValue
     }
     
     func calculateScore(with value: Int) {
@@ -68,17 +114,10 @@ class Game : GameProtocol {
         } else {
             score += 50
         }
+        
     }
     
-    init?(startValue: Int, endValue: Int, rounds: Int){
-        guard startValue < endValue else {
-            return nil
-        }
-        
-        minSecretValue = startValue
-        maxSecretValue = endValue
-        
-        lastRound = rounds
-        currentSecretValue = self.getNewSecretValue()
-    }
+    
 }
+
+
