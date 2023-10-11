@@ -9,69 +9,82 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var number : Int = 0
-    var round: Int = 0
-    var points: Int = 0
-    var guessedNum: Int = 0
+    private var gameObj: Game?
     
-    let roundCount: Int = 5
+    private let minRandomValue: Int = 0
+    private let maxRandomValue: Int = 50
+    private let roundCount: Int = 5
+    
+   
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        print("viewDidLoad")
+        gameObj = Game(startValue: minRandomValue, endValue: maxRandomValue, rounds: roundCount)
+        labelRandomValue.text = String(gameObj!.currentSecretValue)
     }
     
-    func addScore(guessedNum: Int){
-        if guessedNum == number {
-            points += 50
-        } else if guessedNum > number{
-            
-            points += 50 - guessedNum + number
-            
-        }
-        
-        else if guessedNum < number {
-            points += 50 - number + guessedNum
-        }
+    lazy var secondViewController: SecondViewController = getSecondViewController()
+    
+    private func getSecondViewController() -> SecondViewController{
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewController(identifier: "SecondViewController")
+        return viewController as! SecondViewController
     }
     
-    func restartGame() -> Void{
-        points = 0
-        round = 0
-        
+    override func loadView() {
+        super.loadView()
+        print("loadView")
     }
     
-    @IBOutlet weak var labelScore: UILabel!
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("viewWillAppear")
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("viewDidAppear")
+    }
+
+
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("viewWillDisappear")
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("viewDidDisappear")
+    }
+    
+    @IBAction func showAboutScreen(){
+        self.present(secondViewController, animated: true, completion: nil)
+    }
+    
+    
+    @IBOutlet weak var         labelRandomValue: UILabel!
     
     @IBOutlet weak var sliderScore: UISlider!
-    
-    @IBAction func onSliderScoreValueChanged(_ sender: UISlider) {
-        guessedNum = Int(sender.value)
-        
-    }
-    
-    @IBAction func onButtonTap(_ sender: UIButton) {
-        if (round == 0){
-            sender.titleLabel?.text = "Start Game"
-        } else {
-            sender.titleLabel?.text = "Check"
-        }
-        if (roundCount < round){
-            let alertController = UIAlertController(title: "Finish", message: "Your score is :\(points)", preferredStyle:.alert )
+       
+    @IBAction func checkNumber(_ sender: UIButton) {
+        gameObj!.calculateScore(with: Int(sliderScore.value))
+        if gameObj!.isGameEnded {
+            let alertController = UIAlertController(title: "Finish", message: "Your score is :\(gameObj!.score)", preferredStyle:.alert )
             
             
-            let actionOk = UIAlertAction(title: "OK, restart game", style: .default, handler:  {(alert: UIAlertAction!) in self.restartGame()
+            let actionOk = UIAlertAction(title: "OK, restart game", style: .default, handler:  { [self](alert: UIAlertAction!) in gameObj!.restartGame()
             })
             
           
             alertController.addAction(actionOk)
-            self.present(alertController,animated:true, completion: nil)        }
-        else {
-            round += 1
-            addScore(guessedNum: guessedNum)
-            number = Int.random(in: 1...50)
-            labelScore.text = String(number)
+            self.present(alertController,animated:true, completion: nil)            } else {
+            gameObj!.startNewRound()
+                    labelRandomValue.text = String(gameObj!.currentSecretValue)
         }
+       
         
     }
 }

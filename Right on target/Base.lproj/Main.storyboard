@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mzK-XC-ovC">
     <device id="retina6_1" orientation="landscape" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -23,7 +23,7 @@
                                     <color key="titleColor" systemColor="systemIndigoColor"/>
                                 </state>
                                 <connections>
-                                    <action selector="onButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="o8N-yP-qBN"/>
+                                    <action selector="checkNumber:" destination="BYZ-38-t0r" eventType="touchUpInside" id="afT-N1-FSt"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wZp-RS-hzZ">
@@ -40,29 +40,93 @@
                                 </constraints>
                                 <color key="minimumTrackTintColor" systemColor="systemPinkColor"/>
                                 <color key="thumbTintColor" systemColor="systemPinkColor"/>
-                                <connections>
-                                    <action selector="onSliderScoreValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="pfp-fZ-bi2"/>
-                                </connections>
                             </slider>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YUZ-MR-9VR">
+                                <rect key="frame" x="790" y="363" width="42" height="30"/>
+                                <state key="normal" title="About"/>
+                                <connections>
+                                    <action selector="showAboutScreen" destination="BYZ-38-t0r" eventType="touchUpInside" id="JYO-Rj-Cie"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dvr-Sy-bJU">
+                                <rect key="frame" x="20" y="363" width="252" height="30"/>
+                                <state key="normal" title="about via navigation controller scene"/>
+                                <connections>
+                                    <segue destination="lS0-kx-xDV" kind="show" id="2vI-V5-4jI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemYellowColor"/>
                         <constraints>
+                            <constraint firstItem="dvr-Sy-bJU" firstAttribute="baseline" secondItem="YUZ-MR-9VR" secondAttribute="baseline" id="BpN-M5-iCT"/>
+                            <constraint firstItem="YUZ-MR-9VR" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dvr-Sy-bJU" secondAttribute="trailing" constant="8" symbolic="YES" id="C94-p8-nEE"/>
                             <constraint firstItem="Gem-HT-9W4" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="H00-3x-m9e"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="YUZ-MR-9VR" secondAttribute="trailing" constant="20" id="Nl2-kw-dTx"/>
                             <constraint firstItem="ZVr-I7-Mtr" firstAttribute="top" secondItem="Gem-HT-9W4" secondAttribute="bottom" constant="30" id="OLM-YA-5jj"/>
+                            <constraint firstItem="dvr-Sy-bJU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="URg-Bq-eFI"/>
                             <constraint firstItem="wZp-RS-hzZ" firstAttribute="top" secondItem="ZVr-I7-Mtr" secondAttribute="bottom" constant="30" id="eIz-0g-f56"/>
                             <constraint firstItem="Gem-HT-9W4" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="20" id="eTN-JY-mqD"/>
                             <constraint firstItem="Gem-HT-9W4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="fvq-B9-5au"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="YUZ-MR-9VR" secondAttribute="bottom" id="jO8-o8-0xG"/>
                             <constraint firstItem="wZp-RS-hzZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="kgd-Bn-5oe"/>
                             <constraint firstItem="ZVr-I7-Mtr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="oir-qr-QZO"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="obx-3y-A54"/>
                     <connections>
-                        <outlet property="labelScore" destination="wZp-RS-hzZ" id="BhZ-DU-Zaf"/>
+                        <outlet property="labelRandomValue" destination="wZp-RS-hzZ" id="lMG-WD-SiO"/>
                         <outlet property="sliderScore" destination="Gem-HT-9W4" id="hDi-Ek-fwy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="883.92857142857144" y="65.217391304347828"/>
+        </scene>
+        <!--Second View Controller-->
+        <scene sceneID="iZo-oz-BAy">
+            <objects>
+                <viewController storyboardIdentifier="SecondViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lS0-kx-xDV" customClass="SecondViewController" customModule="Right_on_target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="75Y-YQ-hHs">
+                        <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hm4-X2-ZZ4">
+                                <rect key="frame" x="402" y="192" width="92" height="30"/>
+                                <state key="normal" title="back option 1"/>
+                                <connections>
+                                    <action selector="toMainScreen" destination="lS0-kx-xDV" eventType="touchUpInside" id="Son-v3-uo0"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Fsn-vg-eth"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hm4-X2-ZZ4" firstAttribute="centerY" secondItem="75Y-YQ-hHs" secondAttribute="centerY" id="NMB-p9-02N"/>
+                            <constraint firstItem="hm4-X2-ZZ4" firstAttribute="centerX" secondItem="75Y-YQ-hHs" secondAttribute="centerX" id="Rdc-F3-0ku"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="s8L-Xm-Iux"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KXa-Nr-5eU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-102.45535714285714" y="-694.20289855072474"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="cgT-8r-PY6">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mzK-XC-ovC" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="l7A-kF-mwg">
+                        <rect key="frame" x="0.0" y="0.0" width="896" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="lxh-0K-cgc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WT5-pm-HgQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="140.625" y="65.217391304347828"/>
         </scene>
@@ -70,6 +134,9 @@
     <resources>
         <image name="01.square.fill" catalog="system" width="128" height="114"/>
         <image name="50.square.fill" catalog="system" width="128" height="114"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemIndigoColor">
             <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
