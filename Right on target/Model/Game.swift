@@ -7,23 +7,28 @@
 
 import Foundation
 
-
 protocol GameProtocol {
 
     var isGameEnded: Bool{get}
     
     var randomValueGenerator: RandomValueGenerator {get}
     
-    var gameRound: GameRound {get}
-
-    func restartGame()
+    var gameROTRound: ROTGameRound {get}
     
-    func startNewRound()
+    var gameGCRound: GCGameRound {get}
+
+    func restartGame() -> Void
+    
+    func startNewRound() -> Void
 }
 
+
+
 protocol GameRoundProtocol{
-    
     var score: Int {get}
+}
+
+protocol ROTGameRoundProtocol: GameRoundProtocol{
     
     var currentSecretValue: Int {get}
     
@@ -31,19 +36,27 @@ protocol GameRoundProtocol{
     
 }
 
-protocol RandomValueGeneratorProtocol {
-    func getRandomValue() -> Int
+protocol GCGameRoundProtocol: GameRoundProtocol{
+    var currentSecretValue: String {get}
+    
+    func calculateScore(with value: String)
 }
 
+protocol RandomValueGeneratorProtocol {
+    func getRandomValue() -> Int
+    func getRandomHEX() -> String
+}
 
 class Game : GameProtocol {
+    
+    
        
     private var lastRound: Int
     private var currentRound: Int = 0
     
     var randomValueGenerator: RandomValueGenerator
-    var gameRound: GameRound
-    
+    var gameROTRound: ROTGameRound
+    var gameGCRound: GCGameRound
     
     
     var isGameEnded: Bool {
@@ -56,25 +69,63 @@ class Game : GameProtocol {
     
     func restartGame() {
         currentRound = 0
-        self.gameRound.score = 0
+        self.gameROTRound.score = 0
+        
+        self.gameGCRound.score = 0
+        
         startNewRound()
+        
     }
     
     func startNewRound() {
-        self.gameRound.currentSecretValue = self.randomValueGenerator.getRandomValue()
+        self.gameROTRound.currentSecretValue = self.randomValueGenerator.getRandomValue()
+        
+        self.gameGCRound.currentSecretValue = self.randomValueGenerator.getRandomHEX()
         currentRound += 1
     }
     
     
     init(startValue: Int, endValue: Int, rounds: Int){
         lastRound = rounds
+        
         self.randomValueGenerator = RandomValueGenerator(min: startValue, max: endValue)!
-        self.gameRound = GameRound(score: 0, currentSecretValue: randomValueGenerator.getRandomValue())
+        
+        self.gameGCRound = GCGameRound(score: 0, currentSecretValue: randomValueGenerator.getRandomHEX())
+        
+        self.gameROTRound = ROTGameRound(score: 0, currentSecretValue: randomValueGenerator.getRandomValue())
     }
 }
 
 
 struct RandomValueGenerator : RandomValueGeneratorProtocol{
+    func getRandomHEX() -> String {
+        var resultColorHEX : String = "#"
+  
+        let stringElement: String = String.init(describing: ("a"..."z"))
+        let numElement = 0...9
+        
+        
+        repeat {
+            if Bool.random(){
+                resultColorHEX.append(stringElement.randomElement()!)
+            } else {
+                resultColorHEX.append(String(numElement.randomElement()!))
+            }
+            
+            while resultColorHEX.contains(".") {
+                resultColorHEX.remove(at: resultColorHEX.firstIndex(of: ".")!)
+            }
+            
+        } while resultColorHEX.count != 9
+        
+        assert(resultColorHEX.count == 9)
+        
+        print(resultColorHEX)
+        
+        return resultColorHEX
+        
+    }
+        
     func getRandomValue() -> Int {
         return (minValue...maxValue).randomElement()!
     }
@@ -96,7 +147,9 @@ struct RandomValueGenerator : RandomValueGeneratorProtocol{
     }
 }
 
-class GameRound : GameRoundProtocol{
+
+class ROTGameRound : ROTGameRoundProtocol{
+    
     var score: Int
     
     var currentSecretValue: Int
@@ -119,5 +172,26 @@ class GameRound : GameRoundProtocol{
     
     
 }
+
+class GCGameRound : GCGameRoundProtocol{
+    var currentSecretValue: String
+    
+    init(score: Int = 0, currentSecretValue: String){
+        self.score = score
+        self.currentSecretValue = currentSecretValue
+    }
+    
+    func calculateScore(with value: String) {
+        if (value == currentSecretValue){
+            score += 50
+        }
+    }
+    
+    var score: Int
+    
+    
+}
+
+
 
 

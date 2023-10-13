@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Guess Number Scene-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Right_on_target" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Guess Number Scene" id="BYZ-38-t0r" customClass="ViewController" customModule="Right_on_target" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -83,10 +83,10 @@
             </objects>
             <point key="canvasLocation" x="1510" y="414"/>
         </scene>
-        <!--back-->
+        <!--About Scene-->
         <scene sceneID="iZo-oz-BAy">
             <objects>
-                <viewController storyboardIdentifier="SecondViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lS0-kx-xDV" customClass="SecondViewController" customModule="Right_on_target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SecondViewController" title="About Scene" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lS0-kx-xDV" customClass="SecondViewController" customModule="Right_on_target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="75Y-YQ-hHs">
                         <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -158,10 +158,10 @@
             </objects>
             <point key="canvasLocation" x="2057.8817733990149" y="-695.20000000000005"/>
         </scene>
-        <!--View Controller-->
+        <!--Guess Color Scene-->
         <scene sceneID="nff-x1-wmS">
             <objects>
-                <viewController id="Osx-wh-Yht" sceneMemberID="viewController">
+                <viewController title="Guess Color Scene" id="Osx-wh-Yht" customClass="GuessColorGameViewController" customModule="Right_on_target" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="E9f-qU-Z6s">
                         <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -169,31 +169,46 @@
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IiA-ou-tzp">
                                 <rect key="frame" x="549" y="172.66666666666666" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="onButtonTap:" destination="Osx-wh-Yht" eventType="touchUpInside" id="jNW-FD-fFG"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E3U-Qp-2jF">
                                 <rect key="frame" x="217" y="172.66666666666666" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="onButtonTap:" destination="Osx-wh-Yht" eventType="touchUpInside" id="MdY-PE-xpe"/>
+                                </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xSy-9K-3P4">
-                                <rect key="frame" x="427" y="94" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xSy-9K-3P4">
+                                <rect key="frame" x="385" y="77" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="liK-zl-THH">
                                 <rect key="frame" x="323" y="172.66666666666666" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" systemColor="systemGray2Color"/>
+                                </state>
+                                <connections>
+                                    <action selector="onButtonTap:" destination="Osx-wh-Yht" eventType="touchUpInside" id="W7T-QE-nj6"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="253" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PrJ-tn-O1g">
                                 <rect key="frame" x="443" y="172.66666666666666" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="onButtonTap:" destination="Osx-wh-Yht" eventType="touchUpInside" id="31r-lG-eOa"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="J5v-MU-4ph"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.52753135329728118" green="1" blue="0.92016393586580514" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="xSy-9K-3P4" firstAttribute="centerX" secondItem="E9f-qU-Z6s" secondAttribute="centerX" id="991-yU-RuM"/>
                             <constraint firstItem="liK-zl-THH" firstAttribute="centerX" secondItem="E9f-qU-Z6s" secondAttribute="centerX" constant="-60" id="H9j-xa-ogM"/>
+                            <constraint firstItem="xSy-9K-3P4" firstAttribute="centerY" secondItem="E9f-qU-Z6s" secondAttribute="centerY" constant="-100" id="INo-ZC-e5j"/>
                             <constraint firstItem="IiA-ou-tzp" firstAttribute="leading" secondItem="PrJ-tn-O1g" secondAttribute="trailing" constant="60" id="RjF-UL-1Ie"/>
                             <constraint firstItem="IiA-ou-tzp" firstAttribute="centerY" secondItem="E9f-qU-Z6s" secondAttribute="centerY" id="WBm-Yi-rPG"/>
                             <constraint firstItem="PrJ-tn-O1g" firstAttribute="centerY" secondItem="E9f-qU-Z6s" secondAttribute="centerY" id="at8-yv-F7n"/>
@@ -204,6 +219,13 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="dDS-VK-hNX"/>
+                    <connections>
+                        <outlet property="colorButton1" destination="IiA-ou-tzp" id="f5I-3y-EVr"/>
+                        <outlet property="colorButton2" destination="E3U-Qp-2jF" id="Wnw-NH-of6"/>
+                        <outlet property="colorButton3" destination="liK-zl-THH" id="eCI-Ud-be8"/>
+                        <outlet property="colorButton4" destination="PrJ-tn-O1g" id="6o1-ZY-vzw"/>
+                        <outlet property="targetHEXLabel" destination="xSy-9K-3P4" id="cNM-Lf-kdt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tWL-oK-8pd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
