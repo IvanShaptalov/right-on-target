@@ -8,14 +8,13 @@
 import Foundation
 
 protocol GameProtocol {
+    associatedtype T
 
     var isGameEnded: Bool{get}
     
-    var randomValueGenerator: RandomValueGenerator {get}
-    
-    var gameROTRound: ROTGameRound {get}
-    
-    var gameGCRound: GCGameRound {get}
+    var randomValueGenerator: RandomValueGenerator<T> {get}
+        
+    var gameRound: GameRound<T> {get}
 
     func restartGame() -> Void
     
@@ -25,38 +24,32 @@ protocol GameProtocol {
 
 
 protocol GameRoundProtocol{
+    associatedtype T
+
     var score: Int {get}
-}
-
-protocol ROTGameRoundProtocol: GameRoundProtocol{
+        
+    var currentSecretValue: T {get}
     
-    var currentSecretValue: Int {get}
-    
-    func calculateScore(with value: Int)
+    func calculateScore(with value: T)
     
 }
 
-protocol GCGameRoundProtocol: GameRoundProtocol{
-    var currentSecretValue: String {get}
-    
-    func calculateScore(with value: String)
-}
 
 protocol RandomValueGeneratorProtocol {
-    func getRandomValue() -> Int
-    func getRandomHEX() -> String
+    associatedtype T
+    
+    func getRandomValue() -> T
 }
 
-class Game : GameProtocol {
+class Game<T> : GameProtocol {
     
     
        
     private var lastRound: Int
     private var currentRound: Int = 0
     
-    var randomValueGenerator: RandomValueGenerator
-    var gameROTRound: ROTGameRound
-    var gameGCRound: GCGameRound
+    var randomValueGenerator: RandomValueGenerator<T>
+    var gameRound: GameRound<T>
     
     
     var isGameEnded: Bool {
@@ -69,37 +62,38 @@ class Game : GameProtocol {
     
     func restartGame() {
         currentRound = 0
-        self.gameROTRound.score = 0
-        
-        self.gameGCRound.score = 0
-        
+        self.gameRound.score = 0
         startNewRound()
         
     }
     
     func startNewRound() {
-        self.gameROTRound.currentSecretValue = self.randomValueGenerator.getRandomValue()
         
-        self.gameGCRound.currentSecretValue = self.randomValueGenerator.getRandomHEX()
+        self.gameRound.currentSecretValue = self.randomValueGenerator.getRandomValue()
         currentRound += 1
     }
     
     
-    init(startValue: Int, endValue: Int, rounds: Int){
+    init(startValue: Int? = 0, endValue: Int? = 50, rounds: Int){
         lastRound = rounds
         
-        self.randomValueGenerator = RandomValueGenerator(min: startValue, max: endValue)!
+       
+           
+        self.randomValueGenerator = RandomValueGenerator<T>(min: startValue!, max: endValue!)!
+            
         
-        self.gameGCRound = GCGameRound(score: 0, currentSecretValue: randomValueGenerator.getRandomHEX())
+       
         
-        self.gameROTRound = ROTGameRound(score: 0, currentSecretValue: randomValueGenerator.getRandomValue())
+        self.gameRound = GameRound<T>(score: 0, currentSecretValue: randomValueGenerator.getRandomValue())
+        
     }
 }
 
 
-struct RandomValueGenerator : RandomValueGeneratorProtocol{
-    func getRandomHEX() -> String {
-        var resultColorHEX : String = "#"
+struct RandomValueGenerator<T> : RandomValueGeneratorProtocol{
+
+    private func getRandomHEX() -> String {
+        var resultColorHEX : String = ""
   
         let stringElement: String = String.init(describing: ("a"..."z"))
         let numElement = 0...9
@@ -116,9 +110,9 @@ struct RandomValueGenerator : RandomValueGeneratorProtocol{
                 resultColorHEX.remove(at: resultColorHEX.firstIndex(of: ".")!)
             }
             
-        } while resultColorHEX.count != 9
+        } while resultColorHEX.count != 6
         
-        assert(resultColorHEX.count == 9)
+        assert(resultColorHEX.count == 6)
         
         print(resultColorHEX)
         
@@ -126,8 +120,14 @@ struct RandomValueGenerator : RandomValueGeneratorProtocol{
         
     }
         
-    func getRandomValue() -> Int {
-        return (minValue...maxValue).randomElement()!
+    func getRandomValue() -> T {
+        
+        if T.self is String.Type {
+            return getRandomHEX() as! T
+        } else {
+            return (minValue...maxValue).randomElement()! as! T
+        }
+        
     }
     
     
@@ -148,50 +148,35 @@ struct RandomValueGenerator : RandomValueGeneratorProtocol{
 }
 
 
-class ROTGameRound : ROTGameRoundProtocol{
+class GameRound<T> : GameRoundProtocol{
     
     var score: Int
     
-    var currentSecretValue: Int
+    var currentSecretValue: T
     
-    init(score : Int = 0, currentSecretValue: Int){
+    init(score: Int = 0, currentSecretValue: T){
         self.score = score
         self.currentSecretValue = currentSecretValue
     }
     
-    func calculateScore(with value: Int) {
-        if value > currentSecretValue{
-            score += 50 - value + currentSecretValue
-        } else if value < currentSecretValue {
-            score += 50 - currentSecretValue + value
-        } else {
-            score += 50
-        }
+    func calculateScore<T>(with value: T) {
+        if T.self is String.Type {
+            // Guess color game
+            if ((value as! String).lowercased() == (currentSecretValue as! String).lowercased()){
+                score += 50
+            }
+        } else if T.self is Int.Type {
+            // Guess number game
+                if (value as! Int == currentSecretValue as! Int) {
+                    score += 50
+                }
+                else if (value as! Int > currentSecretValue as! Int){
+                    score += 50 - (value as! Int) + (currentSecretValue as! Int)
+                } else {
+                    score += 50 - (currentSecretValue as! Int) + (value as! Int)
+                }
         
+       
     }
-    
-    
 }
-
-class GCGameRound : GCGameRoundProtocol{
-    var currentSecretValue: String
-    
-    init(score: Int = 0, currentSecretValue: String){
-        self.score = score
-        self.currentSecretValue = currentSecretValue
-    }
-    
-    func calculateScore(with value: String) {
-        if (value == currentSecretValue){
-            score += 50
-        }
-    }
-    
-    var score: Int
-    
-    
 }
-
-
-
-

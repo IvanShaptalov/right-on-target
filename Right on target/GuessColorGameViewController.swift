@@ -9,9 +9,9 @@ import UIKit
 
 class GuessColorGameViewController: UIViewController {
     
-    private var gameObj: Game?
+    private var gameObj: Game<String>?
 
-    private let roundCount: Int = 3
+    private let roundCount: Int = 5
     
     @IBOutlet weak var colorButton1: UIButton!
     
@@ -25,28 +25,29 @@ class GuessColorGameViewController: UIViewController {
     
     
     private func updateButtonColor( button: UIButton, hexColor: String){
+        
         button.backgroundColor = UIColor(hex: hexColor)
     }
     
     private func bulkUpdateButtonColor(){
         
         [colorButton1, colorButton2, colorButton3, colorButton4].forEach { (button: UIButton) in
-            updateButtonColor(button: button, hexColor: self.gameObj?.randomValueGenerator.getRandomHEX() ?? "#ffffffff")
+            updateButtonColor(button: button, hexColor: self.gameObj!.randomValueGenerator.getRandomValue())
                 
             
         }
         
         let randomButton: UIButton = [colorButton1, colorButton2, colorButton3, colorButton4].randomElement()!
-        updateButtonColor(button: randomButton, hexColor: gameObj!.gameGCRound.currentSecretValue)
+        updateButtonColor(button: randomButton, hexColor: gameObj!.gameRound.currentSecretValue)
         
     }
     
     
     @IBAction func onButtonTap(_ sender: UIButton) {
         if gameObj!.isGameEnded {
-            showAlertMessage(message: "Your score is :\(gameObj!.gameGCRound.score)")
+            showAlertMessage(message: "Your score is :\(gameObj!.gameRound.score)")
         } else {
-            gameObj!.gameGCRound.calculateScore(with: targetHEXLabel.text!)
+            gameObj!.gameRound.calculateScore(with: sender.backgroundColor?.toHex() ?? "")
             gameObj!.startNewRound()
             updateHEXLabel()
             bulkUpdateButtonColor()
@@ -57,7 +58,7 @@ class GuessColorGameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        gameObj = Game(startValue: 0, endValue: 50, rounds: roundCount)
+        gameObj = Game<String>(rounds: roundCount)
         gameObj?.startNewRound()
         updateHEXLabel()
         bulkUpdateButtonColor()
@@ -65,7 +66,7 @@ class GuessColorGameViewController: UIViewController {
     }
     
     private func updateHEXLabel(){
-        targetHEXLabel.text = String(gameObj!.gameGCRound.currentSecretValue)
+        targetHEXLabel.text = String(gameObj!.gameRound.currentSecretValue)
         
     }
     
