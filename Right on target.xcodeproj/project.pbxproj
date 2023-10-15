@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21273F2C2ADBFA2C002AF375 /* RandomValueGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21273F2B2ADBFA2C002AF375 /* RandomValueGenerator.swift */; };
 		212B30EF2AD99330005FDB17 /* GuessColorGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212B30EE2AD99330005FDB17 /* GuessColorGameViewController.swift */; };
 		212B30F22AD9A3CE005FDB17 /* UiKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212B30F12AD9A3CD005FDB17 /* UiKitExtensions.swift */; };
 		21817D652AD1665E005CA157 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21817D642AD1665E005CA157 /* AppDelegate.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		21273F2B2ADBFA2C002AF375 /* RandomValueGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomValueGenerator.swift; sourceTree = "<group>"; };
 		212B30EE2AD99330005FDB17 /* GuessColorGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuessColorGameViewController.swift; sourceTree = "<group>"; };
 		212B30F12AD9A3CD005FDB17 /* UiKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiKitExtensions.swift; sourceTree = "<group>"; };
 		21817D612AD1665E005CA157 /* Right on target.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Right on target.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				21ED89DF2AD6EC73002A9ADE /* Game.swift */,
+				21273F2B2ADBFA2C002AF375 /* RandomValueGenerator.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -159,6 +162,7 @@
 			files = (
 				21ED89DC2AD40589002A9ADE /* SecondViewController.swift in Sources */,
 				21ED89E02AD6EC73002A9ADE /* Game.swift in Sources */,
+				21273F2C2ADBFA2C002AF375 /* RandomValueGenerator.swift in Sources */,
 				212B30F22AD9A3CE005FDB17 /* UiKitExtensions.swift in Sources */,
 				212B30EF2AD99330005FDB17 /* GuessColorGameViewController.swift in Sources */,
 				21817D692AD1665E005CA157 /* ViewController.swift in Sources */,

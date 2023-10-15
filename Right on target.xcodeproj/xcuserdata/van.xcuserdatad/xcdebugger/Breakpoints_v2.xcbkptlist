@@ -14,8 +14,8 @@
             filePath = "Right on target/Model/Game.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
             landmarkName = "calculateScore(with:)"
             landmarkType = "7">
          </BreakpointContent>
